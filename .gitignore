@@ -1,0 +1,6 @@
+# machine-local / generated — never commit
+skill-backups/
+skills/synced/
+skills/.trash/
+*.bak
+*.tmp
