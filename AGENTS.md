@@ -57,6 +57,36 @@ the underlying code, or adjust `.rubocop.yml`, instead of silencing a cop inline
 Use the `shoulda-matchers` gem for model/controller test assertions (validations,
 associations, etc.) instead of hand-writing equivalent matchers.
 
+## Code — YAGNI: build only what is asked
+
+You aren't gonna need it. Write the smallest thing that satisfies the request
+and no more. Speculative code is debt you have not asked for yet.
+
+- No speculative abstraction. No base class, interface, factory, plugin system,
+  or generic "engine" for one concrete use case.
+- No unused parameters, options, flags, config keys, strategies, or modes.
+  Nothing "just in case". Nothing "for future extensibility".
+- No scaffolding for features nobody requested: no auth, i18n, caching, retry
+  layers, queues, metrics, admin UI, or extra endpoints.
+- No unrequested dependency. Add a gem/npm package only when it earns its place
+  now, not because it might help later.
+- No compatibility shims, fallbacks, or dual code paths for callers that do not
+  exist. Only real call sites count.
+- No TODO stubs for later work. Either implement it now or leave it out.
+- Delete as you go. If the request replaces code, remove the old code in the
+  same change instead of leaving it dormant.
+- Implement to the stated limit: one caller → direct call, two callers → maybe
+  extract, three → extract. Do not skip ahead.
+
+Reuse before you write. Check the repo for an existing helper, model method,
+service, or component that already does the job; use it instead of a new one.
+
+Tests follow the same rule: cover the behavior asked for, not imagined future
+behavior. Do not test private implementation details as proxies for coverage.
+
+If a real extension point is obviously needed, name it in one line and let the
+user decide — do not build it unasked.
+
 ## Communication style — caveman
 
 Talk like caveman. Short. Point only. No fat on bone.
